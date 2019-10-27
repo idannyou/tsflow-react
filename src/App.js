@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Card, Flex, Input } from '@procore/core-react';
+import { Card, Flex } from '@procore/core-react';
 
 import InputClasses from './InputClasses';
 import MainScreen from './MainScreen';
@@ -14,18 +14,22 @@ function useAppState() {
   //Temp set to true
   const [finishInputClasses, setFinishInputClasses] = React.useState(true);
 
+  const videoRef = React.useRef();
+
   return {
     classOne,
     setClassOne,
     classTwo,
     setClassTwo,
     finishInputClasses,
-    setFinishInputClasses
+    setFinishInputClasses,
+    videoRef
   };
 }
 
 function App() {
   const appState = useAppState();
+
   return (
     <Flex direction="column" alignItems="center">
       <Card style={{ width: '370px', height: '600px' }}>
