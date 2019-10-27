@@ -14,7 +14,10 @@ function useAppState() {
   //Temp set to true
   const [finishInputClasses, setFinishInputClasses] = React.useState(true);
 
+  //webcam and mobile net
   const videoRef = React.useRef();
+  const truncatedMobileNetRef = React.useRef();
+  const webcamRef = React.useRef();
 
   return {
     classOne,
@@ -23,7 +26,9 @@ function useAppState() {
     setClassTwo,
     finishInputClasses,
     setFinishInputClasses,
-    videoRef
+    videoRef,
+    truncatedMobileNetRef,
+    webcamRef
   };
 }
 
