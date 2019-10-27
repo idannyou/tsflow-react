@@ -3,8 +3,7 @@ import { Card, Flex } from '@procore/core-react';
 
 import InputClasses from './InputClasses';
 import MainScreen from './MainScreen';
-
-import './App.css';
+import { ControllerDataset } from './controllerDataset';
 
 function useAppState() {
   //Temp set to Hats
@@ -20,6 +19,7 @@ function useAppState() {
   const videoRef = React.useRef();
   const truncatedMobileNetRef = React.useRef();
   const webcamRef = React.useRef();
+  const controllerDatasetRef = React.useRef(new ControllerDataset(2));
 
   //canvas refs
   const classOneCanvasRef = React.useRef();
@@ -40,7 +40,8 @@ function useAppState() {
     truncatedMobileNetRef,
     webcamRef,
     classOneCanvasRef,
-    classTwoCanvasRef
+    classTwoCanvasRef,
+    controllerDatasetRef
   };
 }
 

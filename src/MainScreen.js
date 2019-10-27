@@ -41,6 +41,11 @@ function Controls(props) {
     let img = await getImage(props.appState.webcamRef.current);
     draw(img, props.appState.classOneCanvasRef.current);
     props.appState.setClassOneSamples(props.appState.classOneSamples + 1);
+    props.appState.controllerDatasetRef.current.addExample(
+      props.appState.truncatedMobileNetRef.current.predict(img),
+      0
+    );
+
     img.dispose();
   });
 
@@ -48,6 +53,10 @@ function Controls(props) {
     let img = await getImage(props.appState.webcamRef.current);
     draw(img, props.appState.classTwoCanvasRef.current);
     props.appState.setClassTwoSamples(props.appState.classTwoSamples + 1);
+    props.appState.controllerDatasetRef.current.addExample(
+      props.appState.truncatedMobileNetRef.current.predict(img),
+      1
+    );
     img.dispose();
   });
 
@@ -105,10 +114,10 @@ function SampleCanvas(props) {
 function MainScreen(props) {
   React.useEffect(() => {
     async function initWebcam() {
-      props.appState.webcamRef.current = await loadWebcam(
-        props.appState.videoRef.current,
-        props.appState.truncatedMobileNetRef.current
-      );
+      const loadedWebcam = await loadWebcam(props.appState.videoRef.current);
+      props.appState.webcamRef.current = loadedWebcam.webcam;
+      props.appState.truncatedMobileNetRef.current =
+        loadedWebcam.truncatedMobileNet;
     }
     initWebcam();
   }, [

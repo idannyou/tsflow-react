@@ -10,9 +10,9 @@ export async function loadTruncatedMobileNet() {
   return tf.model({ inputs: mobilenet.inputs, outputs: layer.output });
 }
 
-export async function loadWebcam(videoRef, truncatedMobileNet) {
+export async function loadWebcam(videoRef) {
   if (!videoRef) return;
-  let webcam;
+  let webcam, truncatedMobileNet;
   try {
     webcam = await tfd.webcam(videoRef);
   } catch (e) {
@@ -22,7 +22,7 @@ export async function loadWebcam(videoRef, truncatedMobileNet) {
   const screenShot = await webcam.capture();
   truncatedMobileNet.predict(screenShot.expandDims(0));
   screenShot.dispose();
-  return webcam;
+  return { webcam, truncatedMobileNet };
 }
 
 export async function getImage(webcam) {
