@@ -4,7 +4,6 @@ import { getImage } from './webcam';
 
 export async function train(
   controllerDataset,
-  model,
   truncatedMobileNet,
   setTrainStatus
 ) {
@@ -12,7 +11,7 @@ export async function train(
     throw new Error('Add some examples before training!');
   }
 
-  model = tf.sequential({
+  let model = tf.sequential({
     layers: [
       tf.layers.flatten({
         inputShape: truncatedMobileNet.outputs[0].shape.slice(1)
@@ -51,20 +50,17 @@ export async function train(
       }
     }
   });
+
+  return model;
 }
 
-export async function predict(
-  setPredictClass,
-  webcam,
-  truncatedMobileNet,
-  model
-) {
-  const img = await getImage(webcam);
-  const embeddings = truncatedMobileNet.predict(img);
-  const predictions = model.predict(embeddings);
+export async function predict(webcamRef, truncatedMobileNetRef, modelRef) {
+  const img = await getImage(webcamRef.current);
+  const embeddings = truncatedMobileNetRef.current.predict(img);
+  const predictions = modelRef.current.predict(embeddings);
   const predictedClass = predictions.as1D().argMax();
   const classId = (await predictedClass.data())[0];
   img.dispose();
-  setPredictClass(classId);
   await tf.nextFrame();
+  return classId;
 }

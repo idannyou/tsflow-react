@@ -9,9 +9,10 @@ import {
   FlexList
 } from '@procore/core-react';
 
+import { train, predict } from './machineLearning';
 import { draw, loadWebcam, getImage } from './webcam';
 
-function useLongPress(callback = () => {}, ms = 100) {
+function useLongPress(callback = () => {}, ms = 10) {
   const [startLongPress, setStartLongPress] = React.useState(false);
 
   React.useEffect(() => {
@@ -60,21 +61,92 @@ function Controls(props) {
     img.dispose();
   });
 
+  const [predictMode, setPredictMode] = React.useState(false);
+  const [count, setCount] = React.useState(0);
+  const [predictedClass, setPredictedClass] = React.useState(null);
+
+  const handleTrain = async () => {
+    props.appState.modelRef.current = await train(
+      props.appState.controllerDatasetRef.current,
+      props.appState.truncatedMobileNetRef.current,
+      arg => console.log(arg)
+    );
+
+    setPredictMode(false);
+  };
+
+  const handlePredict = () => {
+    if (predictMode) {
+      setPredictedClass(null);
+    }
+    setPredictMode(!predictMode);
+  };
+
+  React.useEffect(() => {
+    let timer;
+
+    if (predictMode) {
+      timer = setTimeout(async () => {
+        const classId = await predict(
+          props.appState.webcamRef,
+          props.appState.truncatedMobileNetRef,
+          props.appState.modelRef
+        );
+        setCount(count + 1);
+        setPredictedClass(classId);
+      }, 100);
+    } else {
+      clearTimeout(timer);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  });
+
   return (
     <Box margin="md">
       <Box margin="md">
         <FlexList size="lg" justifyContent="center">
-          <Button> Train</Button>
-          <Button> Predict</Button>
+          <Button
+            disabled={props.appState.controllerDatasetRef.xs == null}
+            onClick={handleTrain}
+          >
+            Train
+          </Button>
+          <Button onClick={handlePredict}>
+            {predictMode ? 'Stop Predicting' : 'Predict'}
+          </Button>
         </FlexList>
       </Box>
       <FlexList size="lg">
         <Flex direction="column" alignItems="center">
-          <Header.H3>{props.appState.classOne}</Header.H3>
+          <Header.H3
+            style={{
+              color:
+                predictedClass === null
+                  ? 'black'
+                  : predictedClass === 0
+                  ? 'green'
+                  : 'red'
+            }}
+          >
+            {props.appState.classOne}
+          </Header.H3>
           <Button {...handleLongPressOne}>Add Sample</Button>
         </Flex>
         <Flex direction="column" alignItems="center">
-          <Header.H3>{props.appState.classTwo}</Header.H3>
+          <Header.H3
+            style={{
+              color:
+                predictedClass === null
+                  ? 'black'
+                  : predictedClass === 1
+                  ? 'green'
+                  : 'red'
+            }}
+          >
+            {props.appState.classTwo}
+          </Header.H3>
           <Button {...handleLongPressTwo}>Add Sample</Button>
         </Flex>
       </FlexList>

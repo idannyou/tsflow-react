@@ -6,20 +6,19 @@ import MainScreen from './MainScreen';
 import { ControllerDataset } from './controllerDataset';
 
 function useAppState() {
-  //Temp set to Hats
-  const [classOne, setClassOne] = React.useState('Wearing Hat');
-  const [classTwo, setClassTwo] = React.useState('Not Wearing Hat');
+  const [classOne, setClassOne] = React.useState('');
+  const [classTwo, setClassTwo] = React.useState('');
   const [classOneSamples, setClassOneSamples] = React.useState(0);
   const [classTwoSamples, setClassTwoSamples] = React.useState(0);
 
-  //Temp set to true
-  const [finishInputClasses, setFinishInputClasses] = React.useState(true);
+  const [finishInputClasses, setFinishInputClasses] = React.useState(false);
 
-  //webcam and mobile net
+  //webcam , model, and mobile net
   const videoRef = React.useRef();
   const truncatedMobileNetRef = React.useRef();
   const webcamRef = React.useRef();
   const controllerDatasetRef = React.useRef(new ControllerDataset(2));
+  const modelRef = React.useRef;
 
   //canvas refs
   const classOneCanvasRef = React.useRef();
@@ -41,7 +40,8 @@ function useAppState() {
     webcamRef,
     classOneCanvasRef,
     classTwoCanvasRef,
-    controllerDatasetRef
+    controllerDatasetRef,
+    modelRef
   };
 }
 
