@@ -41,7 +41,7 @@ export async function train(
     );
   }
 
-  model.fit(controllerDataset.xs, controllerDataset.ys, {
+  await model.fit(controllerDataset.xs, controllerDataset.ys, {
     batchSize,
     epochs: 20,
     callbacks: {

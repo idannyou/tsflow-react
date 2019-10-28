@@ -64,6 +64,7 @@ function Controls(props) {
   const [predictMode, setPredictMode] = React.useState(false);
   const [count, setCount] = React.useState(0);
   const [predictedClass, setPredictedClass] = React.useState(null);
+  const [canPredict, setCanPredict] = React.useState(false);
 
   const handleTrain = async () => {
     props.appState.modelRef.current = await train(
@@ -71,8 +72,8 @@ function Controls(props) {
       props.appState.truncatedMobileNetRef.current,
       arg => console.log(arg)
     );
-
     setPredictMode(false);
+    setCanPredict(true);
   };
 
   const handlePredict = () => {
@@ -108,17 +109,22 @@ function Controls(props) {
       <Box margin="md">
         <FlexList size="lg" justifyContent="center">
           <Button
-            disabled={props.appState.controllerDatasetRef.xs == null}
+            disabled={props.appState.controllerDatasetRef.current.xs == null}
             onClick={handleTrain}
+            style={{ width: '125px' }}
           >
             Train
           </Button>
-          <Button onClick={handlePredict}>
+          <Button
+            disabled={!canPredict}
+            onClick={handlePredict}
+            style={{ width: '125px' }}
+          >
             {predictMode ? 'Stop Predicting' : 'Predict'}
           </Button>
         </FlexList>
       </Box>
-      <FlexList size="lg">
+      <FlexList size="lg" justifyContent="center">
         <Flex direction="column" alignItems="center">
           <Header.H3
             style={{
@@ -132,7 +138,9 @@ function Controls(props) {
           >
             {props.appState.classOne}
           </Header.H3>
-          <Button {...handleLongPressOne}>Add Sample</Button>
+          <Button style={{ width: '125px' }} {...handleLongPressOne}>
+            Add Sample
+          </Button>
         </Flex>
         <Flex direction="column" alignItems="center">
           <Header.H3
@@ -147,7 +155,9 @@ function Controls(props) {
           >
             {props.appState.classTwo}
           </Header.H3>
-          <Button {...handleLongPressTwo}>Add Sample</Button>
+          <Button style={{ width: '125px' }} {...handleLongPressTwo}>
+            Add Sample
+          </Button>
         </Flex>
       </FlexList>
     </Box>
