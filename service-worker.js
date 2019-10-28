@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/tsflow-react/precache-manifest.e72496a7895c5e61c2859c08476717a0.js"
+  "/tsflow-react/precache-manifest.d78f442d2b1e416269e5a5cec31ace5e.js"
 );
 
 self.addEventListener('message', (event) => {
