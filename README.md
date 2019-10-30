@@ -10,7 +10,7 @@ Does not work on Mobile: [Live Demo](https://idannyou.github.io/tsflow-react/)
 
 ### Overview
 
-Machine learning (ML) is all around us assisting and simplifying our everyday tasks. More advance ML tools will potentially make bigger decesions in our near future. Deep learning is a branch of machine learning that uses neural networks to "mimic human response"; known data are used to predict the result of new data. It is important that everyone know the basics of ML to help understand and improve ML models so that the decesions they make are diverse, fair, and just.
+Machine learning (ML) is all around us, assisting and simplifying our everyday tasks. More advanced ML tools will potentially make bigger decisions in our near future. Deep learning is a branch of machine learning that uses neural networks to "mimic human response"; known data are used to predict the result of new data. It is important that everyone know the basics of ML to help understand and improve ML models so that the decisions they make are diverse, fair, and just.
 
 ### Demo Instructions
 
