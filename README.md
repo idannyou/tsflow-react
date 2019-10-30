@@ -10,11 +10,18 @@ Machine learning (ML) is all around us assisting and simplifying our everyday ta
 
 This demo is my very first stepping stone in understanding how deep learning, a branch of ML, works. In this Demo:
 
-- Insipired by [Transfer Learning](https://github.com/tensorflow/tfjs-examples/tree/master/webcam-transfer-learning)
-- user inputs (2) responses / classes
-  ![alt text](https://github.com/idannyou/tsflow-react/blob/master/README/enter_class.gif 'Enter Class')
-- user then uses their webcam to add data points to classify these responses
-  ![alt text](https://github.com/idannyou/tsflow-react/blob/master/README/adding_samples.gif 'Add Samples')
-- user clicks `Train`
-- user clicks `Predict` to start prediction
-  ![alt text](https://github.com/idannyou/tsflow-react/blob/master/README/predicting.gif 'Prediction')
+#### Insipired by [Transfer Learning](https://github.com/tensorflow/tfjs-examples/tree/master/webcam-transfer-learning)
+
+#### user inputs (2) responses / classes
+
+![alt text](https://github.com/idannyou/tsflow-react/blob/master/README/enter_class.gif 'Enter Class')
+
+#### user then uses their webcam to add data points to classify these responses
+
+![alt text](https://github.com/idannyou/tsflow-react/blob/master/README/adding_samples.gif 'Add Samples')
+
+#### user clicks `Train`
+
+#### user clicks `Predict` to start prediction
+
+![alt text](https://github.com/idannyou/tsflow-react/blob/master/README/predicting.gif 'Prediction')
